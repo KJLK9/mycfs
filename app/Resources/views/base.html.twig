@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="stylesheet" href="{{ asset('css/reg.css') }}" />
+        {% block stylesheets %}{% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+        <header>
+            {% block header %}
+                <h2 id="title">MyFCS</h2>
+                <a href="{{ path('logout') }}">
+                    <img src="{{ asset('images/logout.png') }}" id="logout">
+                </a>
+            {% endblock %}
+        </header>
+        <nav>
+            {% block nav %}
+                {% if session.rechten is defined %}
+                    <ul>
+                        <a href="{{ asset('/menu') }}"><li>Menu</li></a>
+                        {% for rechten in session.rechten %}
+                            {% if rechten == "ROLE_ADMIN" %}
+                                <li class="expandable firstli">
+                                    <span class="sub_ul_header" onclick="expanding('pri')">
+                                        <span id="pri" class="exp_ind">&#9654;</span>
+                                        Prijzen
+                                    </span>
+                                    <ul class="sub_ul">
+                                        <li class="pri firstli"><a href="{{ asset('prijzen/bekijken') }}">Bekijken/aanpassen</a></li>
+                                        <li class="pri"><a href="{{ asset('prijzen/toevoegen') }}">Toevoegen</a></li>
+                                    </ul>
+                                </li>
+                                <li class="expandable firstli">
+                                    <span class="sub_ul_header" onclick="expanding('gebr')">
+                                        <span id="gebr" class="exp_ind">&#9654;</span>
+                                        Gebruikers
+                                    </span>
+                                    <ul class="sub_ul">
+                                        <li class="gebr firstli"><a href="{{ asset('gebruikers/bekijken') }}">Bekijken</a></li>
+                                        <li class="gebr"><a href="{{ asset('gebruikers/toevoegen') }}">Toevoegen</a></li>
+                                    </ul>
+                                </li>
+                            {% endif %}
+                            {% if rechten == "ROLE_ARTS" %}
+                                <li class="expandable firstli">
+                                <span class="sub_ul_header" onclick="expanding('pat')">
+                                    <span id="pat" class="exp_ind">&#9654;</span>
+                                    Patiënten
+                                </span>
+                                    <ul class="sub_ul">
+                                        <li class="pat firstli"><a href="{{ asset('patienten/bekijken') }}">Bekijken</a></li>
+                                        <li class="pat"><a href="{{ asset('patienten/toevoegen') }}">Toevoegen</a></li>
+                                    </ul>
+                                </li>
+                                <li class="expandable firstli">
+                                <span class="sub_ul_header" onclick="expanding('fa')">
+                                    <span id="fa" class="exp_ind">&#9654;</span>
+                                    Facturen
+                                </span>
+                                <ul class="sub_ul">
+                                    <li class="fa firstli"><a href="{{ asset('facturen/toevoegen') }}">Toevoegen</a></li>
+                                </ul>
+                            </li>
+                            {% endif %}
+                            {% if rechten == "ROLE_VERZEKERING" %}
+                                <li class="expandable firstli">
+                                <span class="sub_ul_header" onclick="expanding('fac')">
+                                    <span id="fac" class="exp_ind">&#9654;</span>
+                                    Facturen
+                                </span>
+                                    <ul class="sub_ul">
+                                        <li class="fac firstli"><a href="{{ asset('facturen/download') }}">Downloaden</a></li>
+                                        <li class="fac"><a href="{{ asset('facturen/betalen') }}">Betalen</a></li>
+                                    </ul>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                        {% if session.name is defined %}
+                            <li class="expandable firstli">
+                            <span class="sub_ul_header" onclick="expanding('acc')">
+                                <span id="acc" class="exp_ind">&#9654;</span>
+                                Account
+                            </span>
+                                <ul class="sub_ul">
+                                    <li class="acc firstli"><a href="{{ asset('account/overzicht') }}">Overzicht</a></li>
+                                    <li class="acc"><a href="{{ asset('account/wijzigen') }}">Wijzigen</a></li>
+                                </ul>
+                            </li>
+                        {% endif %}
+                    </ul>
+                {% else %}
+                    <script type="text/javascript">returnToHome();</script>
+                {% endif %}
+            {% endblock %}
+        </nav>
+        <main>
+            {% block main %}
+            {% endblock %}
+        </main>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+        <script type="text/javascript" src="{{ asset('JS/functions.js') }}">
+        </script>
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

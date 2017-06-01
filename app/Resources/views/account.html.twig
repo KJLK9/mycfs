@@ -1,0 +1,16 @@
+{%  extends 'base.html.twig' %}
+{% block title %} {{ person.UserName~' - Account' }} {% endblock %}
+{% block stylesheets %}<link rel="stylesheet" type="text/css" href="{{ asset('CSS/forms.css') }}">{% endblock %}
+{% block main %}
+    {% if actie is defined %}
+        <p class="server_response">uw actie is {{ actie }} doorgevoerd</p>
+    {% endif %}
+    <table cellspacing="0" border="0">
+        <tr>
+            <th>ID</th><th>Naam</th><th>Email</th><th>Wachtwoord</th>
+        </tr>
+        <tr>
+            <td>{{ person.id }}</td><td>{{ person.UserName }}</td><td>{{ person.email }}</td><td><a href="{{ asset('account/wijzigen') }}"><img src="{{ asset('images/edit.png') }}"></a></td>
+        </tr>
+    </table>
+{% endblock %}

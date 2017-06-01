@@ -1,0 +1,10 @@
+{%  extends 'base.html.twig' %}
+{% block title %} Downloaden {% endblock %}
+{% block stylesheets %}<link rel="stylesheet" type="text/css" href="{{ asset('CSS/forms.css') }}">{% endblock %}
+{% block main %}
+    {{ form_start(form) }}
+    {% if(fout is defined) %}
+        <p class="server_response">{{ fout }}</p>
+    {% endif %}
+    {{ form_end(form) }}
+{% endblock %}

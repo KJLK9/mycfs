@@ -1,0 +1,56 @@
+{%  extends 'base.html.twig' %}
+{% block title %} Alle patiënten {% endblock %}
+
+{% block main %}
+    {% for rechten in session.rechten %}
+        {% if rechten == "ROLE_ARTS" %}
+        <table cellspacing="0" border="0">
+            <tr class="form_control">
+                <td>
+                    <div id="pagination">
+                        {% set first, previous, next = 1, curpage - 1, curpage + 1 %}
+                        {% if(previous <= 0) %}
+                            {% set previous = 1 %}
+                        {% endif %}
+                        {% if GET['zoekwoord'] is defined %}
+                            {% set prefix = '&zoekwoord=' ~ GET['zoekwoord'] %}
+                            {% set first, previous, next, lastpage = first ~ prefix, previous ~ prefix, next ~ prefix, lastpage ~ prefix %}
+                        {% endif %}
+                        <a href="{{ asset('patienten/bekijken?page='~ first) }}">
+                            &lt;&lt;&lt;
+                        </a>
+                        <a href="{{ asset('patienten/bekijken?page='~ previous) }}">
+                            &lt;
+                        </a>
+                        <a>
+                            {{ curpage }}
+                        </a>
+                        <a href="{{ asset('patienten/bekijken?page='~ next) }}">
+                            &gt;
+                        </a>
+                        <a href="{{ asset('patienten/bekijken?page='~ lastpage) }}">
+                            &gt;&gt;&gt;
+                        </a>
+                    </div>
+                </td><td>
+                    <form id="search" method="GET" action="{{ asset('patienten/bekijken') }}">
+                        <input type="hidden" name="page" value="1">
+                        <input type="text" name="zoekwoord" placeholder="zoeken..." required>
+                        <input type="submit" value="&#128269;">
+                    </form>
+                </td>
+            </tr>
+            <tr>
+                <th>Naam</th><th>Plaats</th><th>Verzekering</th><th> + Factuur</th>
+            </tr>
+            {% for item in patienten %}
+                <tr>
+                    <td>{{ item.naam }}</td><td>{{ item.plaats }}</td><td>{{ item.verzekering }} | {{ item.ID }}</td><td><a href="{{ asset('facturen/toevoegen?id='~item.polisnr) }}"><img src="{{ asset('images/add.png') }}"></a></td>
+                </tr>
+            {% endfor %}
+        </table>
+        {% elseif %}
+            <script type="text/javascript">returnToHome();</script>
+        {% endif %}
+    {% endfor %}
+{% endblock %}

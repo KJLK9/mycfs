@@ -1,0 +1,37 @@
+{%  extends 'base.html.twig' %}
+{% block title %} Betaling {% endblock %}
+
+{% block main %}
+    {% for rechten in session.rechten %}
+        {% if rechten == "ROLE_VERZEKERING" %}
+            {% if actie is defined %}
+            <p class="server_response">uw actie is {{ actie }} doorgevoerd</p>
+        {% endif %}
+            {% if patienten is defined %}
+                <form method="post" action="{{ asset('facturen/betalen') }}" autocomplete="off" class="SF">
+                    <label for="pat" onclick="foc('pat')">Patient: </label>
+                    <select name="pat">
+                        {% for patient in patienten %}
+                            <option value="{{ patient.polisnr }}">{{ patient.ID~' | '~patient.naam  }}</option>
+                        {% endfor %}
+                    </select>
+
+                    <input type="submit">
+                </form>
+            {% elseif facturen is defined %}
+                <table cellspacing="0" border="0">
+                    <tr>
+                        <th>Verzekering</th><th>Bedrag</th><th>Datum</th><th>Betaling</th>
+                    </tr>
+                    {% for item in facturen %}
+                        <tr>
+                            <td>{{ item.patpolis.polisnr }}</td><td>{{ item.prijzen.soort }} x {{ item.tijd }}</td><td>{{ item.datum }}</td><td><a class="button" href="{{ asset('facturen/betalen/'~item.fID) }}">Betalen</a></td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% endif %}
+        {% elseif %}
+            <script type="text/javascript">returnToHome();</script>
+        {% endif %}
+    {% endfor %}
+{% endblock %}

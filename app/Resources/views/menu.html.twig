@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+{% block title %} Menu {% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/menu.css') }}">
+{% endblock %}
+{% block main %}
+    {% for rechten in session.rechten %}
+        {% if rechten == "ROLE_ADMIN" %}
+            <h2 class="category">Prijzen</h2>
+            <div class="block" onclick="this.style.background='green';block('prijzen', 'bekijken')">Bekijken <br> aanpassen</div>
+            <div class="block" onclick="this.style.background='green';block('prijzen', 'toevoegen')">Toevoegen</div>
+            <hr>
+            <h2 class="category">Gebruikers</h2>
+            <div class="block" onclick="this.style.background='green';block('gebruikers', 'bekijken')">Bekijken</div>
+            <div class="block" onclick="this.style.background='green';block('gebruikers', 'toevoegen')">Toevoegen</div>
+        {% elseif rechten == "ROLE_ARTS" %}
+            <h2 class="category">Patiënten</h2>
+            <div class="block" onclick="this.style.background='green';block('patienten', 'bekijken')">Bekijken <br> aanpassen</div>
+            <div class="block" onclick="this.style.background='green';block('patienten', 'toevoegen')">Toevoegen</div>
+            <hr>
+            <h2 class="category">Facturen</h2>
+            <div class="block" onclick="this.style.background='green';block('facturen', 'toevoegen')">Toevoegen</div>
+        {% elseif rechten == "ROLE_VERZEKERING" %}
+            <h2 class="category">Facturen</h2>
+            <div class="block" onclick="this.style.background='green';block('facturen', 'download')">Bekijken <br> aanpassen</div>
+            <div class="block" onclick="this.style.background='green';block('facturen', 'betalen')">Betalen</div>
+        {% endif %}
+    {% endfor %}
+{% endblock %}
+

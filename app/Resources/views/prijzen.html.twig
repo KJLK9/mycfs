@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+{% block title %} Alle prijsrubrieken {% endblock %}
+{% block main %}
+    {% for rechten in session.rechten %}
+        {% if rechten == "ROLE_ADMIN" %}
+            <table cellspacing="0" border="0">
+                <tr class="form_control">
+                    <td>
+                        <div id="pagination">
+                            {% set first, previous, next = 1, curpage - 1, curpage + 1 %}
+                            {% if(previous <= 0) %}
+                                {% set previous = 1 %}
+                            {% endif %}
+                            {% if GET['zoekwoord'] is defined %}
+                                {% set prefix = '&zoekwoord=' ~ GET['zoekwoord'] %}
+                                {% set first, previous, next, lastpage = first ~ prefix, previous ~ prefix, next ~ prefix, lastpage ~ prefix %}
+                            {% endif %}
+                            <a href="{{ asset('prijzen/bekijken?page='~ first) }}">
+                                &lt;&lt;&lt;
+                            </a>
+                            <a href="{{ asset('prijzen/bekijken?page='~ previous) }}">
+                                &lt;
+                            </a>
+                            <a>
+                                {{ curpage }}
+                            </a>
+                            <a href="{{ asset('prijzen/bekijken?page='~ next) }}">
+                                &gt;
+                            </a>
+                            <a href="{{ asset('prijzen/bekijken?page='~ lastpage) }}">
+                                &gt;&gt;&gt;
+                            </a>
+                        </div>
+                    </td><td>
+                        <form id="search" method="GET" action="{{ asset('prijzen/bekijken') }}">
+                            <input type="hidden" name="page" value="1">
+                            <input type="text" name="zoekwoord" placeholder="zoeken..." required>
+                            <input type="submit" value="&#128269;">
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Soort</th><th>Prijs</th><th>Bewerken</th><th>Delete</th>
+                </tr>
+                {% for prijs in prijzen %}
+                    <tr>
+                        <td>{{ prijs.soort }}</td><td>{{ prijs.prijs }}</td><td><a href="{{ asset('prijzen/edit/'~prijs.soort) }}"><img src="{{ asset('images/edit.png') }}"></a></td><td><a href="{{ asset('prijzen/delete/'~prijs.soort) }}"><img src="{{ asset('images/Remove.png') }}"></a></td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% endif %}
+    {% endfor %}
+{% endblock %}

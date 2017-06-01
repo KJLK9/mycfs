@@ -1,0 +1,206 @@
+body{
+    margin: 0;
+    background: linear-gradient(to bottom, rgba(142, 246, 0, 0.1), rgba(0, 0, 0, 0.2));
+    min-height: 100vh;
+}
+header{
+    width: 100%;
+    background: repeating-linear-gradient(45deg,#606dbc,#465298 10px,#465298 20px);
+    height: 100px;
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, calc(100% - 100px) 100%, calc(100% - 150px) 50%, calc(0% + 50px) 50%, 0% 100%, 0% 0%);
+    box-shadow: inset 0 0 10px #000000;
+}
+header img#logout{
+    height: 90px;
+    float: right;
+    margin: 5px;
+}
+h2#title{
+    position: absolute;
+    margin-top: 0;
+    margin-left: calc(50% - 100px);
+    color: #5360aa;
+    background: #f0fae3;
+    padding: 12px;
+    box-shadow: 5px 5px 5px #141414;
+}
+main{
+    width: calc(70% - 50px);
+    min-height: 739px;
+    height: auto;
+    margin: 50px calc(7% + 50px) 20px 0;
+    background: #99CDD8;
+    display: inline-block;
+    float: right;
+    clip-path: polygon(0% 0%, calc(100% - 30px) 0%, 100% 30px, 100% 100%, 0% 100%, 0% 0%);
+}
+nav{
+    position: fixed;
+    width: 18%;
+    height: 600px;
+    margin: 50px 0px 50px 5%;
+    display: inline-block;
+    float: left;
+    background: #6b9311;
+    clip-path: polygon(30px 0%, 100% 0%, 100% 100%, calc(100% - 30px) calc(100% - 30px), 0% calc(100% - 30px), 0% 30px);
+    opacity: 0.8;
+}
+.server_response{
+    text-align: center;
+    color: #6b9311;
+    font-size: 25px;
+}
+nav ul{
+    list-style-type: none;
+    padding: 0;
+    font-size: 120%;
+    font-weight: bold;
+    color: lightgrey;
+}
+nav ul li{
+    background: #141414;
+    margin: 0 20px;
+    border: 1px solid lightgrey;
+    border-top: none;
+    line-height: 25px;
+    padding: 5px;
+    transition: 0.3s;
+}
+nav ul a{
+    color: inherit;
+    text-decoration: none;
+    width: 100%;
+    height: 100%;
+    margin-left: 25px;
+}
+.firstli{
+    border-top: 1px solid lightgrey;
+}
+nav ul li ul li{
+    font-size: 70%;
+    font-weight: normal;
+}
+li.expandable{
+    background: none;
+    padding: 0;
+    cursor: pointer;
+    border: none;
+}
+.sub_ul li{
+    margin-left: 30px;
+    margin-right: 0;
+    height: 0;
+    font-size: 0;
+    border-width: 0;
+    padding: 0;
+}
+.sub_ul_header{
+    background: #141414;
+    display: block;
+    padding: 5px;
+    user-select: none;
+}
+.exp_ind{
+    color: lightgrey;
+    height: 100%;
+    width: 25px;
+    position: relative;
+}
+.sub_ul_header:hover > .exp_ind{
+    color: white;
+}
+table{
+    width: 90%;
+    margin: 35px 5%;
+    display: block;
+    border-collapse: collapse;
+    border-spacing: 0 !important;
+}
+tbody,
+tr{
+    width: 100%;
+    display: block;
+}
+tr th{
+    background: #141414;
+    color: lightgrey;
+}
+td,
+th{
+    padding: 10px;
+    background: lightgrey;
+    font-size: 25px;
+    border-top: 1px solid #141414;
+    color: #141414;
+    display: inline-block;
+    text-align: left;
+    border-spacing: 0 !important;
+}
+tr td:first-of-type,
+tr th:first-of-type{
+    width: 15%;
+    text-align: center;
+}
+tr td:nth-of-type(2),
+tr th:nth-of-type(2){
+    width: 30%;
+}
+tr td:nth-of-type(3),
+tr th:nth-of-type(3){
+    width: calc(40% - 100px);
+}
+tr td:last-of-type,
+tr th:last-of-type{
+    width: 15%;
+}
+tr td img{
+    height: 22px;
+    text-align: center;
+}
+tr:hover td{
+    background: #141414;
+    color: lightgrey;
+}
+tr.form_control:hover td{
+    background: lightgrey;
+    color: #141414;
+}
+tr.form_control td{
+    width: auto;
+    min-height: 50px;
+}
+tr.form_control td:first-of-type{
+    width: 48%;
+}
+tr.form_control td:last-of-type{
+    width: calc(55% - 100px);
+    text-align: center;
+}
+div#pagination{
+    padding: 5px 0;
+}
+div#pagination a{
+    padding: 7px 15px;
+    border: 1px solid #141414;
+    background: grey;
+    color: #141414;
+    text-decoration: none;
+}
+div#pagination a:first-of-type{
+    border-radius: 7px 0 0 7px;
+}
+div#pagination a:last-of-type{
+    border-radius: 0 7px 7px 0;
+}
+div#pagination a:hover{
+    background: rgba(48, 215, 224, 0.2);
+}
+form#search input{
+    padding: 5px;
+}
+a.button{
+    color: #141414;
+    background: lightgrey;
+    padding: 2px 5px;
+    text-decoration: none;
+}

@@ -1,0 +1,60 @@
+{%  extends 'base.html.twig' %}
+{% block title %} Alle gebruikers {% endblock %}
+
+{% block main %}
+        {{ parent() }}
+    {% for rechten in session.rechten %}
+        {% if rechten == "ROLE_ADMIN" %}
+            {% if actie is defined %}
+                <p class="server_response">uw actie is {{ actie }} doorgevoerd</p>
+            {% elseif verzoek is defined %}
+                <p class="server_response">uw verzoek is {{ actie }} doorgevoerd</p>
+            {% endif %}
+            <table cellspacing="0" border="0">
+                <tr class="form_control">
+                    <td>
+                        <div id="pagination">
+                            {% set first, previous, next = 1, curpage - 1, curpage + 1 %}
+                            {% if(previous <= 0) %}
+                                {% set previous = 1 %}
+                            {% endif %}
+                            {% if GET['zoekwoord'] is defined %}
+                                {% set prefix = '&zoekwoord=' ~ GET['zoekwoord'] %}
+                                {% set first, previous, next, lastpage = first ~ prefix, previous ~ prefix, next ~ prefix, lastpage ~ prefix %}
+                            {% endif %}
+                            <a href="{{ asset('gebruikers/bekijken?page='~ first) }}">
+                                &lt;&lt;&lt;
+                            </a>
+                            <a href="{{ asset('gebruikers/bekijken?page='~ previous) }}">
+                                &lt;
+                            </a>
+                            <a>
+                                {{ curpage }}
+                            </a>
+                            <a href="{{ asset('gebruikers/bekijken?page='~ next) }}">
+                                &gt;
+                            </a>
+                            <a href="{{ asset('gebruikers/bekijken?page='~ lastpage) }}">
+                                &gt;&gt;&gt;
+                            </a>
+                        </div>
+                    </td><td>
+                        <form id="search" method="GET" action="{{ asset('gebruikers/bekijken') }}">
+                            <input type="hidden" name="page" value="1">
+                            <input type="text" name="zoekwoord" placeholder="zoeken..." required>
+                            <input type="submit" value="&#128269;">
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                    <th>ID</th><th>Naam</th><th>Rechten</th><th>Bewerken</th>
+                </tr>
+            {% for item in personen %}
+                <tr>
+                    <td>{{ item.id }}</td><td>{{ item.UserName }}</td><td>{% for i in item.Roles %}{% if i != "ROLE_USER" %}{{ i }}{% endif %}{% endfor %}</td><td><a href="{{ asset('gebruikers/edit/'~item.id) }}"><img src="{{ asset('images/edit.png') }}"></a></td>
+                </tr>
+            {% endfor %}
+            </table>
+        {% endif %}
+    {% endfor %}
+{% endblock %}
